@@ -1,4 +1,3 @@
-import subprocess
 from gtts import gTTS
 import time
 from pygame import mixer
