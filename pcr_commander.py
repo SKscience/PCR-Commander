@@ -1,12 +1,14 @@
 import subprocess
 from gtts import gTTS
 import time
+from pygame import mixer
+mixer.init()
 
-experiment_name = raw_input("Name of experiment:  ")
-t_95 = int(raw_input("Duration of 95 degree step [s]:  "))
-t_60 = int(raw_input("Duration of 60 degree step [s]:  "))
-t_72 = int(raw_input("Duration of 72 degree step [s]:  "))
-number_cycles = int(raw_input("Number of cycles:  "))
+experiment_name = input("Name of experiment:  ")
+t_95 = int(input("Duration of 95 degree step [s]:  "))
+t_60 = int(input("Duration of 60 degree step [s]:  "))
+t_72 = int(input("Duration of 72 degree step [s]:  "))
+number_cycles = int(input("Number of cycles:  "))
 
 
 start_pcr_audio = "audio/start_pcr.mp3"
@@ -53,12 +55,20 @@ prog.write("3" + "\t" + "72" + "\t" + str(t_72) + "\n")
 prog.close()
 
 
-subprocess.call(["afplay", start_pcr_audio])
+mixer.music.load(start_pcr_audio)
+mixer.music.play()
+while mixer.music.get_busy() == 1:
+    continue
 time.sleep(25)
-subprocess.call(["afplay", change_audio])
+mixer.music.load(change_audio)
+mixer.music.play()
+while mixer.music.get_busy() == 1:
+    continue
 time.sleep(5)
-subprocess.call(["afplay", start_now_audio])
-
+mixer.music.load(start_now_audio)
+mixer.music.play()
+while mixer.music.get_busy() == 1:
+    continue
 
 print("START")
 for i in range(0,number_cycles):
@@ -67,25 +77,54 @@ for i in range(0,number_cycles):
     print("Step:  " + str(i+1))
     print("##########")
     print("95 grad Celcius")
-    subprocess.call(["afplay", step])
-    subprocess.call(["afplay", temp1_audio])
+    mixer.music.load(step)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
+    mixer.music.load(temp1_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     time.sleep(t_95-4-2-5)
-    subprocess.call(["afplay", change_audio])
+    mixer.music.load(change_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     time.sleep(5)
-    subprocess.call(["afplay", now_change_audio])
+    mixer.music.load(now_change_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
 
     print("60 grad celcius")
-    subprocess.call(["afplay", temp2_audio])
+    mixer.music.load(temp2_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     time.sleep(t_60-4-2-5)
-    subprocess.call(["afplay", change_audio])
+    mixer.music.load(change_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     time.sleep(5)
-    subprocess.call(["afplay", now_change_audio])
+    mixer.music.load(now_change_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     
     print("72 grad celcius")
-    subprocess.call(["afplay", temp3_audio])
+    mixer.music.load(temp3_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     time.sleep(t_72-4-2-5)
-    subprocess.call(["afplay", change_audio])
+    mixer.music.load(change_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
     time.sleep(5)
-    subprocess.call(["afplay", now_change_audio])
+    mixer.music.load(now_change_audio)
+    mixer.music.play()
+    while mixer.music.get_busy() == 1:
+        continue
 
-#return_code = subprocess.call(["afplay", audio_file])
