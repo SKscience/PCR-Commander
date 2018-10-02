@@ -11,36 +11,36 @@ number_cycles = int(input("Number of cycles:  "))
 
 
 start_pcr_audio = "audio/start_pcr.mp3"
-start_pcr = gTTS(text="Die PCR startet in 30 sec mit dem 95 grad celcius Schritt. Mach dich bereit!", lang="de")
+start_pcr = gTTS(text="The PCR starts in 30 sec with the high temperature step. Get ready.", lang="en")
 start_pcr.save(start_pcr_audio)
 
 start_now_audio = "audio/start_now.mp3"
-start_now = gTTS(text="Start", lang="de")
+start_now = gTTS(text="Start", lang="en")
 start_now.save(start_now_audio)
 
 change_audio = "audio/change.mp3"
-change = gTTS(text="5 Sekunden", lang="de")
+change = gTTS(text="5 seconds", lang="en")
 change.save(change_audio)
 
 now_change_audio = "audio/change_now.mp3"
-now_change = gTTS(text="Jetzt wechseln", lang="de")
+now_change = gTTS(text="Change now", lang="en")
 now_change.save(now_change_audio)
 
 temp1_audio = "audio/temp1.mp3"
-temp1 = gTTS(text="95 Grad Celcius fuer " + str(t_95) + " sec", lang="de")
+temp1 = gTTS(text="High temp step for " + str(t_95) + " sec", lang="en")
 temp1.save(temp1_audio)
 
 temp2_audio = "audio/temp2.mp3"
-temp2 = gTTS(text="60 Grad Celcius fuer " + str(t_60) + " sec", lang="de")
+temp2 = gTTS(text="Low temp step for " + str(t_60) + " sec", lang="en")
 temp2.save(temp2_audio)
 
 temp3_audio = "audio/temp3.mp3"
-temp3 = gTTS(text="72 Grad Celcius fuer " + str(t_72) + " sec", lang="de")
+temp3 = gTTS(text="Mid temp step for " + str(t_72) + " sec", lang="en")
 temp3.save(temp3_audio)
 
 for i in range(1,number_cycles + 1):
     step_audio = "audio/step" + str(i) + ".mp3"
-    step = gTTS(text="Zyclus " + str(i), lang="de")
+    step = gTTS(text="Cycle " + str(i), lang="en")
     step.save(step_audio)
 
 # Save chosen program:
@@ -69,13 +69,15 @@ mixer.music.play()
 while mixer.music.get_busy() == 1:
     continue
 
+time_correction = 7
+
 print("START")
 for i in range(0,number_cycles):
     step = "audio/step" + str(i+1) + ".mp3"
     print("##########")
     print("Step:  " + str(i+1))
     print("##########")
-    print("95 grad Celcius")
+    print("Denaturation step")
     mixer.music.load(step)
     mixer.music.play()
     while mixer.music.get_busy() == 1:
@@ -84,7 +86,7 @@ for i in range(0,number_cycles):
     mixer.music.play()
     while mixer.music.get_busy() == 1:
         continue
-    time.sleep(t_95-4-2-5)
+    time.sleep(t_95-time_correction)
     mixer.music.load(change_audio)
     mixer.music.play()
     while mixer.music.get_busy() == 1:
@@ -95,12 +97,12 @@ for i in range(0,number_cycles):
     while mixer.music.get_busy() == 1:
         continue
 
-    print("60 grad celcius")
+    print("Annealing step")
     mixer.music.load(temp2_audio)
     mixer.music.play()
     while mixer.music.get_busy() == 1:
         continue
-    time.sleep(t_60-4-2-5)
+    time.sleep(t_60-time_correction)
     mixer.music.load(change_audio)
     mixer.music.play()
     while mixer.music.get_busy() == 1:
@@ -111,12 +113,12 @@ for i in range(0,number_cycles):
     while mixer.music.get_busy() == 1:
         continue
     
-    print("72 grad celcius")
+    print("Elongation step")
     mixer.music.load(temp3_audio)
     mixer.music.play()
     while mixer.music.get_busy() == 1:
         continue
-    time.sleep(t_72-4-2-5)
+    time.sleep(t_72-time_correction)
     mixer.music.load(change_audio)
     mixer.music.play()
     while mixer.music.get_busy() == 1:
