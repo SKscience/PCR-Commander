@@ -4,10 +4,10 @@ from pygame import mixer
 mixer.init()
 
 experiment_name = input("Name of experiment:  ")
-t_95 = int(input("Duration of 95 degree step [s]:  "))
-t_60 = int(input("Duration of 60 degree step [s]:  "))
-t_72 = int(input("Duration of 72 degree step [s]:  "))
-number_cycles = int(input("Number of cycles:  "))
+t_95 = int(input("Duration of 95 degree step [s]:  ")) # 35
+t_60 = int(input("Duration of 60 degree step [s]:  ")) # 40
+t_72 = int(input("Duration of 72 degree step [s]:  ")) # 50
+number_cycles = int(input("Number of cycles:  ")) # 45
 
 
 # Save chosen program:
